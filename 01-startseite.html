@@ -54,7 +54,7 @@
   <button class="v-korbknopf" aria-label="Warenkorb öffnen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b></b></button>
   <button class="v-burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></header>
-<style>@font-face{font-family:"MM Pagella";src:url("../bilder-hochladen/mm-pagella.woff") format("woff");font-display:swap}/* Maya Munay – Bausteine für Shopify (Horizon). Alles hängt an .mm, damit das Theme nichts verschiebt. */
+<style>@font-face{font-family:"MM Pagella";src:url("bilder/mm-pagella.woff") format("woff");font-display:swap}/* Maya Munay – Bausteine für Shopify (Horizon). Alles hängt an .mm, damit das Theme nichts verschiebt. */
 .mm{--t:#352E26;--leise:#6F6355;--erde:#7A5C48;--kakao:#4A3A2E;--gold:#CBAE6F;--creme:#EFE6D5;--sand:#F7F2EA;--terra:#C26547;--terra-d:#A9533A;--linie:#E2D6C2;
   --serif:Palatino,"Palatino Linotype","Book Antiqua","URW Palladio L",Georgia,serif;
   color:var(--t);font-family:var(--serif);font-size:17px;line-height:1.65;width:100%;-webkit-font-smoothing:antialiased}
@@ -347,7 +347,43 @@
 /* Sanftes Einblenden beim Scrollen (nur mit JavaScript, nie bei „weniger Bewegung“) */
 .mm.js .mm-sicht{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
 .mm.js .mm-sicht.da{opacity:1;transform:none}
-@media (prefers-reduced-motion:reduce){.mm.js .mm-sicht{opacity:1;transform:none;transition:none}.mm-pin i{animation:none}.mm *{scroll-behavior:auto}}
+/* Titelbild: ganz langsamer Zoom */
+.mm-held>img{animation:mm-ken 16s cubic-bezier(.2,.6,.2,1) both}
+@keyframes mm-ken{from{transform:scale(1.09)}to{transform:scale(1)}}
+
+/* Zahlen: ruhige, gleich breite Ziffern beim Hochzählen */
+.mm-zahl b{font-variant-numeric:tabular-nums lining-nums}
+.mm.js .mm-zahlen>.mm-sicht{transform:translateY(22px) scale(.96)}
+.mm.js .mm-zahlen>.mm-sicht.da{transform:none}
+
+/* Karte: Land blendet ein, dann fallen die Orte nacheinander */
+.mm.js .mm-landkarte>img{opacity:0;transform:scale(.95);transition:opacity 1.2s ease,transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.mm.js .mm-landkarte.an>img{opacity:1;transform:none}
+.mm.js .mm-landkarte .mm-pin{opacity:0}
+.mm.js .mm-landkarte.an .mm-pin{animation:mm-pin-fall .9s cubic-bezier(.3,1.5,.5,1) forwards}
+.mm.js .mm-landkarte.an .mm-pin:nth-of-type(1){animation-delay:.7s}
+.mm.js .mm-landkarte.an .mm-pin:nth-of-type(2){animation-delay:1.1s}
+.mm.js .mm-landkarte.an .mm-pin:nth-of-type(3){animation-delay:1.5s}
+@keyframes mm-pin-fall{0%{opacity:0;transform:translate(-50%,-190%)}60%{opacity:1}100%{opacity:1;transform:translate(-50%,-100%)}}
+.mm.js .mm-orte-liste>.mm-sicht{transform:translateX(40px)}
+.mm.js .mm-orte-liste>.mm-sicht.da{transform:none}
+.mm.js .mm-orte-liste>*:nth-child(1){transition-delay:.9s!important}
+.mm.js .mm-orte-liste>*:nth-child(2){transition-delay:1.3s!important}
+.mm.js .mm-orte-liste>*:nth-child(3){transition-delay:1.7s!important}
+
+/* Weg des Kakaos: Linie zeichnet sich, Nummern ploppen auf */
+.mm.js .mm-weg::before{transform:scaleX(0);transform-origin:left center;transition:transform 2.4s cubic-bezier(.4,.1,.2,1) .2s}
+.mm.js .mm-weg.an::before{transform:none}
+.mm.js .mm-weg li::before{transform:scale(0);transition:transform .6s cubic-bezier(.3,1.6,.5,1);transition-delay:inherit}
+.mm.js .mm-weg li.da::before{transform:scale(1)}
+.mm.js .mm-weg li .kreis{transform:scale(.85);transition:transform .9s cubic-bezier(.2,.8,.2,1);transition-delay:inherit}
+.mm.js .mm-weg li.da .kreis{transform:none}
+
+/* Symbole zeichnen sich Strich für Strich */
+.mm.js .mm-wert svg>*{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.6s ease;transition-delay:inherit}
+.mm.js .mm-wert.da svg>*{stroke-dashoffset:0}
+
+@media (prefers-reduced-motion:reduce){.mm.js .mm-sicht{opacity:1;transform:none;transition:none}.mm-pin i,.mm-held>img{animation:none}.mm *{scroll-behavior:auto}}
 
 /* Handy */
 @media (max-width:900px){
@@ -453,10 +489,10 @@
 </section>
 
 <div class="mm-vorteile"><ul>
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.8-6-11a6 6 0 0 1 12 0c0 5.2-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>Direkt aus Venezuela</li>
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 20h10M4.5 7.5h15"/><path d="M4.5 7.5 2 13a2.6 2.6 0 0 0 5 0zM19.5 7.5 17 13a2.6 2.6 0 0 0 5 0z"/></svg>Fair bezahlte Bauernfamilien</li>
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 12V5.8a1.4 1.4 0 0 1 2.8 0V11m0-1.2V4.6a1.4 1.4 0 0 1 2.8 0V11m0-.6V6a1.4 1.4 0 0 1 2.8 0v6.4c0 4.6-2.7 7.6-6.6 7.6-2.6 0-4.4-1.5-5.6-3.6l-2-3.8a1.4 1.4 0 0 1 2.4-1.4L7.5 13.4"/></svg>Von Hand geerntet</li>
-  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6.5h11v9H3z"/><path d="M14 9.5h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg>Versandkostenfrei ab 95 € (DE)</li>
+  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 21s-6-5.8-6-11a6 6 0 0 1 12 0c0 5.2-6 11-6 11z"/><circle pathLength="1" cx="12" cy="10" r="2.2"/></svg>Direkt aus Venezuela</li>
+  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 4v16M7 20h10M4.5 7.5h15"/><path pathLength="1" d="M4.5 7.5 2 13a2.6 2.6 0 0 0 5 0zM19.5 7.5 17 13a2.6 2.6 0 0 0 5 0z"/></svg>Fair bezahlte Bauernfamilien</li>
+  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M7.5 12V5.8a1.4 1.4 0 0 1 2.8 0V11m0-1.2V4.6a1.4 1.4 0 0 1 2.8 0V11m0-.6V6a1.4 1.4 0 0 1 2.8 0v6.4c0 4.6-2.7 7.6-6.6 7.6-2.6 0-4.4-1.5-5.6-3.6l-2-3.8a1.4 1.4 0 0 1 2.4-1.4L7.5 13.4"/></svg>Von Hand geerntet</li>
+  <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M3 6.5h11v9H3z"/><path pathLength="1" d="M14 9.5h4l3 3v3h-7"/><circle pathLength="1" cx="7" cy="17.5" r="1.8"/><circle pathLength="1" cx="17" cy="17.5" r="1.8"/></svg>Versandkostenfrei ab 95 € (DE)</li>
 </ul></div>
 
 <section class="mm-abschnitt mm-sand mm-rahmen">
@@ -465,17 +501,17 @@
   <div class="mm-innen mm-mitte">
     <span class="mm-marke">Direkt aus Venezuela</span>
     <h2>Kakao von Menschen,<br>die wir kennen</h2>
-    <img class="mm-ornament" src="../bilder-hochladen/mm-strich.png" alt="" width="150" height="9" loading="lazy">
+    <img class="mm-ornament" src="bilder/mm-strich.png" alt="" width="150" height="9" loading="lazy">
     <p class="mm-lead mm-schmal">Unser Kakao wächst in drei Regionen Venezuelas: in Sur del Lago, im Küstendorf Macuro und auf unserer eigenen Hacienda in Caripito – im Mischwald, im Einklang mit dem Dschungel.</p>
     <div class="mm-werte">
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-6-5.8-6-11a6 6 0 0 1 12 0c0 5.2-6 11-6 11z"/><circle cx="12" cy="10" r="2.2"/></svg>Direkt gehandelt<span>ohne Zwischenhandel</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v16M7 20h10M4.5 7.5h15"/><path d="M4.5 7.5 2 13a2.6 2.6 0 0 0 5 0zM19.5 7.5 17 13a2.6 2.6 0 0 0 5 0z"/></svg>Fair bezahlt<span>in Macuro 1 $ pro kg über dem höchsten Preis vor Ort</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-6"/><path d="M12 15c-4 0-6.5-2.5-6.5-5.7S8.4 3.8 12 3c3.6.8 6.5 3.1 6.5 6.3S16 15 12 15z"/><path d="M12 15l-2.5-2.5M12 13l2.5-2.5"/></svg>Agroforst<span>Mischwald statt Monokultur</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 12V5.8a1.4 1.4 0 0 1 2.8 0V11m0-1.2V4.6a1.4 1.4 0 0 1 2.8 0V11m0-.6V6a1.4 1.4 0 0 1 2.8 0v6.4c0 4.6-2.7 7.6-6.6 7.6-2.6 0-4.4-1.5-5.6-3.6l-2-3.8a1.4 1.4 0 0 1 2.4-1.4L7.5 13.4"/></svg>Von Hand geerntet<span>und achtsam verarbeitet</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4.2 6 7.6 6 11.2a6 6 0 0 1-12 0C6 10.6 9 7.2 12 3z"/><path d="M9.5 15a2.6 2.6 0 0 0 2.5 2.5"/></svg>Ungesüßt &amp; pur<span>100 % Kakaomasse</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="12" rx="5.6" ry="8.6" transform="rotate(28 12 12)"/><path d="M9.2 5.6c2.4 3.2 1.4 9.6 5.6 12.8"/></svg>Edelkakao<span>Acriollado mit hohem Criollo-Anteil</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-14 14z"/><path d="M5 19l9-9"/></svg>Vegan &amp; glutenfrei<span>von Natur aus</span></div>
-      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-8"/><path d="M12 13c0-4-3-6.5-7-6.5 0 4 3 6.5 7 6.5zM12 11c0-3.2 2.6-5.5 6.5-5.5 0 3.2-2.6 5.5-6.5 5.5z"/></svg>Über 100 Bäume<span>gepflanzt durch Baumpatenschaften</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 21s-6-5.8-6-11a6 6 0 0 1 12 0c0 5.2-6 11-6 11z"/><circle pathLength="1" cx="12" cy="10" r="2.2"/></svg>Direkt gehandelt<span>ohne Zwischenhandel</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 4v16M7 20h10M4.5 7.5h15"/><path pathLength="1" d="M4.5 7.5 2 13a2.6 2.6 0 0 0 5 0zM19.5 7.5 17 13a2.6 2.6 0 0 0 5 0z"/></svg>Fair bezahlt<span>in Macuro 1 $ pro kg über dem höchsten Preis vor Ort</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 21v-6"/><path pathLength="1" d="M12 15c-4 0-6.5-2.5-6.5-5.7S8.4 3.8 12 3c3.6.8 6.5 3.1 6.5 6.3S16 15 12 15z"/><path pathLength="1" d="M12 15l-2.5-2.5M12 13l2.5-2.5"/></svg>Agroforst<span>Mischwald statt Monokultur</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M7.5 12V5.8a1.4 1.4 0 0 1 2.8 0V11m0-1.2V4.6a1.4 1.4 0 0 1 2.8 0V11m0-.6V6a1.4 1.4 0 0 1 2.8 0v6.4c0 4.6-2.7 7.6-6.6 7.6-2.6 0-4.4-1.5-5.6-3.6l-2-3.8a1.4 1.4 0 0 1 2.4-1.4L7.5 13.4"/></svg>Von Hand geerntet<span>und achtsam verarbeitet</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 3c3 4.2 6 7.6 6 11.2a6 6 0 0 1-12 0C6 10.6 9 7.2 12 3z"/><path pathLength="1" d="M9.5 15a2.6 2.6 0 0 0 2.5 2.5"/></svg>Ungesüßt &amp; pur<span>100 % Kakaomasse</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse pathLength="1" cx="12" cy="12" rx="5.6" ry="8.6" transform="rotate(28 12 12)"/><path pathLength="1" d="M9.2 5.6c2.4 3.2 1.4 9.6 5.6 12.8"/></svg>Edelkakao<span>Acriollado mit hohem Criollo-Anteil</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M5 19c0-8 5-13 14-14 0 9-5 14-14 14z"/><path pathLength="1" d="M5 19l9-9"/></svg>Vegan &amp; glutenfrei<span>von Natur aus</span></div>
+      <div class="mm-wert"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M12 21v-8"/><path pathLength="1" d="M12 13c0-4-3-6.5-7-6.5 0 4 3 6.5 7 6.5zM12 11c0-3.2 2.6-5.5 6.5-5.5 0 3.2-2.6 5.5-6.5 5.5z"/></svg>Über 100 Bäume<span>gepflanzt durch Baumpatenschaften</span></div>
     </div>
     <div class="mm-knoepfe"><a class="mm-knopf dunkel" href="k-kakaomasse.html">Zum Kakao</a></div>
   </div>
@@ -553,7 +589,7 @@
   <div class="mm-innen mm-mitte">
     <span class="mm-marke">Vom Baum bis in die Tasse</span>
     <h2>Der Weg unseres Kakaos</h2>
-    <img class="mm-ornament" src="../bilder-hochladen/mm-strich.png" alt="" width="150" height="9" loading="lazy">
+    <img class="mm-ornament" src="bilder/mm-strich.png" alt="" width="150" height="9" loading="lazy">
     <ol class="mm-weg">
       <li><div class="kreis"><img src="https://www.mayamunay.com/cdn/shop/files/Mayamunay_ernte_macuro.jpg?width=400" alt="Kakaoernte in Macuro" loading="lazy" width="248" height="248"></div><h3>Ernten</h3><p>Von Hand, im Mischwald – die Familien helfen einander.</p></li>
       <li><div class="kreis"><img src="https://www.mayamunay.com/cdn/shop/files/Mayamunay_cacao_hands.jpg?width=400" alt="Fermentierte Kakaobohnen" loading="lazy" width="248" height="248"></div><h3>Fermentieren</h3><p>Hier entstehen die Aromen, die den Kakao später prägen.</p></li>
@@ -609,7 +645,7 @@
     </div>
     <div class="mm-nebeneinander mitte">
       <div class="mm-landkarte">
-        <img src="../bilder-hochladen/mm-venezuela.png" alt="Karte von Venezuela mit unseren drei Projektorten" width="800" height="755" loading="lazy">
+        <img src="bilder/mm-venezuela.png" alt="Karte von Venezuela mit unseren drei Projektorten" width="800" height="755" loading="lazy">
         <a class="mm-pin" href="06-projekt-sur-del-lago.html" style="left:15%;top:40%"><b>Sur del Lago</b><i></i></a>
         <a class="mm-pin" href="05-projekt-macuro.html" style="left:84%;top:21%"><b>Macuro</b><i></i></a>
         <a class="mm-pin" href="04-projekt-caripito.html" style="left:76%;top:34%"><b>Caripito</b><i></i></a>
@@ -667,7 +703,7 @@
   </div>
 </section>
 
-<section><div class="mm-gruss"><img src="../bilder-hochladen/mm-kolibri-farbe.png" alt="" width="110" height="153" loading="lazy"><p class="spruch">In lak’ech hala ken</p><p class="bedeutung">Ich bin ein anderes Du. – der Maya-Gruß auf jeder unserer Packungen</p></div></section>
+<section><div class="mm-gruss"><img src="bilder/mm-kolibri-farbe.png" alt="" width="110" height="153" loading="lazy"><p class="spruch">In lak’ech hala ken</p><p class="bedeutung">Ich bin ein anderes Du. – der Maya-Gruß auf jeder unserer Packungen</p></div></section>
 </div>
 
 <footer class="v-fuss"><div class="v-fuss-innen">
@@ -762,7 +798,29 @@ document.addEventListener('click', e => {
 });
 })();
 </script>
-<script>(()=>{if(!("IntersectionObserver"in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;document.querySelectorAll(".mm:not(.js)").forEach(m=>{m.classList.add("js");const ziele=m.querySelectorAll(".mm-abschnitt h2,.mm-lead,.mm-karten>*,.mm-produkte>*,.mm-werte>*,.mm-weg>li,.mm-sorten>*,.mm-galerie>*,.mm-ort,.mm-zitat>*,.mm-teilen>.text>*,.mm-zahlen>*,.mm-rezept,.mm-landkarte,.mm-orte-liste>*,.mm-post>*");const b=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("da");b.unobserve(e.target)} }),{rootMargin:"0px 0px -8% 0px"});ziele.forEach(z=>{const i=[...z.parentElement.children].indexOf(z);z.style.transitionDelay=Math.min(i,5)*70+"ms";z.classList.add("mm-sicht");b.observe(z)})})})();</script>
+<script>(() => {
+if (!('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+const zaehlen = b => {
+  const text = b.textContent, m = text.match(/[0-9]+(?:[.,][0-9]+)?/); if (!m) return;
+  const ziel = parseFloat(m[0].replace(',', '.')), vor = text.slice(0, m.index), nach = text.slice(m.index + m[0].length);
+  const stellen = (m[0].split(/[.,]/)[1] || '').length, t0 = performance.now(), dauer = 1800;
+  const schritt = jetzt => { const p = Math.min(1, (jetzt - t0) / dauer), e = 1 - Math.pow(1 - p, 3);
+    b.textContent = vor + (ziel * e).toFixed(stellen).replace('.', ',') + nach; if (p < 1) requestAnimationFrame(schritt); };
+  b.textContent = vor + '0' + nach; requestAnimationFrame(schritt);
+};
+document.querySelectorAll('.mm:not(.js)').forEach(m => {
+  m.classList.add('js');
+  const sicht = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    e.target.classList.add('da'); sicht.unobserve(e.target);
+    if (e.target.matches('.mm-zahl')) zaehlen(e.target.querySelector('b'));
+  }), {rootMargin: '0px 0px -8% 0px'});
+  m.querySelectorAll('.mm-abschnitt h2,.mm-lead,.mm-karten>*,.mm-produkte>*,.mm-werte>*,.mm-weg>li,.mm-sorten>*,.mm-galerie>*,.mm-ort,.mm-zitat>*,.mm-teilen>.text>*,.mm-zahlen>*,.mm-rezept,.mm-orte-liste>*,.mm-post>*')
+    .forEach(z => { const i = [...z.parentElement.children].indexOf(z); z.style.transitionDelay = Math.min(i, 5) * 90 + 'ms'; z.classList.add('mm-sicht'); sicht.observe(z); });
+  const ganz = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('an'); ganz.unobserve(e.target); } }), {threshold: .35});
+  m.querySelectorAll('.mm-weg,.mm-landkarte').forEach(z => ganz.observe(z));
+});
+})();</script>
 <script>
 const kopf = document.querySelector('.v-kopf'), burger = document.querySelector('.v-burger');
 burger.onclick = () => { const offen = kopf.classList.toggle('offen'); burger.setAttribute('aria-expanded', offen); };
