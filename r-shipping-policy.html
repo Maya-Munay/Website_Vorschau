@@ -32,9 +32,18 @@
   .v-kopf.offen .v-burger span:nth-child(2){opacity:0}
   .v-kopf.offen .v-burger span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
-.v-fuss{border-top:1px solid #EFE6D5;padding:36px 20px 44px;text-align:center;font:14.5px/2 Palatino,"Palatino Linotype",serif;color:#6F6355}
-.v-fuss a{color:#352E26;text-decoration:none} .v-fuss a:hover{color:#C26547}
-.v-fuss p{margin:12px 0 0;font-size:13px}
+.v-fuss{background:#2E221A;color:#D9CCB8;font:15px/1.7 Palatino,"Palatino Linotype","MM Pagella",serif;padding:64px 20px 28px}
+.v-fuss-innen{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px}
+.v-fuss h4{font:600 11.5px -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#CBAE6F;margin:0 0 14px}
+.v-fuss ul{list-style:none;margin:0;padding:0} .v-fuss li{margin:0 0 6px}
+.v-fuss a{color:#EFE6D5;text-decoration:none} .v-fuss a:hover{color:#CBAE6F}
+.v-fuss-marke img{height:64px;width:auto;filter:brightness(0) invert(.92) sepia(.25);margin-bottom:14px}
+.v-fuss-marke p{margin:0 0 16px;max-width:300px}
+.v-sozial{display:flex;gap:12px} .v-sozial a{width:38px;height:38px;border:1px solid #5C4A3B;border-radius:50%;display:grid;place-items:center}
+.v-sozial a:hover{border-color:#CBAE6F} .v-sozial svg{width:18px;height:18px}
+.v-fuss-unten{max-width:1180px;margin:44px auto 0;padding-top:20px;border-top:1px solid #4A3A2E;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:#A8977F}
+.v-fuss-unten a{color:#A8977F}
+@media (max-width:900px){.v-fuss-innen{grid-template-columns:1fr 1fr} .v-fuss-marke{grid-column:1/-1}}
 .v-toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);background:#352E26;color:#F7F2EA;font:15px Palatino,serif;padding:12px 20px;border-radius:99px;opacity:0;transition:.3s;z-index:130;pointer-events:none}
 .v-toast.an{opacity:1;transform:translate(-50%,0)}
 </style></head><body>
@@ -45,7 +54,7 @@
   <button class="v-korbknopf" aria-label="Warenkorb öffnen"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b></b></button>
   <button class="v-burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
 </div></header>
-<style>/* Maya Munay – Bausteine für Shopify (Horizon). Alles hängt an .mm, damit das Theme nichts verschiebt. */
+<style>@font-face{font-family:"MM Pagella";src:url("../bilder-hochladen/mm-pagella.woff") format("woff");font-display:swap}/* Maya Munay – Bausteine für Shopify (Horizon). Alles hängt an .mm, damit das Theme nichts verschiebt. */
 .mm{--t:#352E26;--leise:#6F6355;--erde:#7A5C48;--kakao:#4A3A2E;--gold:#CBAE6F;--creme:#EFE6D5;--sand:#F7F2EA;--terra:#C26547;--terra-d:#A9533A;--linie:#E2D6C2;
   --serif:Palatino,"Palatino Linotype","Book Antiqua","URW Palladio L",Georgia,serif;
   color:var(--t);font-family:var(--serif);font-size:17px;line-height:1.65;width:100%;-webkit-font-smoothing:antialiased}
@@ -60,6 +69,7 @@
 .mm a{color:inherit}
 .mm-innen{max-width:1180px;margin:0 auto;padding:0 20px}
 .mm-schmal{max-width:760px;margin:0 auto;padding:0 20px}
+.mm .mm-schmal{margin-left:auto;margin-right:auto}   /* gewinnt gegen .mm p, damit schmale Absätze mittig stehen */
 .mm-abschnitt{padding:clamp(56px,8vw,96px) 0}
 .mm-sand{background:var(--sand)}
 .mm-creme{background:var(--creme)}
@@ -247,6 +257,98 @@
 .mm-vergleich .aus{display:block;font-size:12.5px;color:var(--terra);margin-top:4px}
 .mm-vergleich .mm-sterne{margin:0;flex-direction:column;gap:0}
 
+/* ===== Feinschliff: Schrift, Rhythmus, Details ===== */
+.mm{--serif:Palatino,"Palatino Linotype","MM Pagella","Book Antiqua",Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --schatten:0 18px 40px -22px rgba(53,46,38,.45);font-size:17.5px;line-height:1.7;text-rendering:optimizeLegibility}
+.mm h1,.mm h2{letter-spacing:-.012em;line-height:1.12}
+.mm h1{font-size:clamp(36px,5.6vw,64px)}
+.mm h2{font-size:clamp(30px,4vw,46px)}
+.mm h3{letter-spacing:-.005em}
+.mm-marke{font-family:var(--sans);font-size:11.5px;font-weight:600;letter-spacing:.22em}
+.mm-lead{color:#4A4036}
+.mm-dunkel .mm-lead,.mm-box .mm-lead,.mm-teilen .text.erde .mm-lead{color:inherit}
+.mm-knopf{font-family:var(--sans);font-size:12px;font-weight:600;letter-spacing:.16em;min-height:50px;padding:14px 30px;gap:10px;transition:background .25s,color .25s,transform .25s,box-shadow .25s}
+.mm-knopf:hover{transform:translateY(-1px);box-shadow:0 10px 22px -12px rgba(53,46,38,.6)}
+.mm-knopf::after{content:"→";font-weight:400;font-size:15px;letter-spacing:0;transition:transform .25s}
+.mm-knopf:hover::after{transform:translateX(3px)}
+.mm-textlink{font-family:var(--sans);font-size:14px;font-weight:600;letter-spacing:.06em;text-decoration:none!important;border-bottom:1.5px solid currentColor;padding-bottom:2px}
+.mm :focus-visible{outline:2px solid var(--terra);outline-offset:3px;border-radius:4px}
+.mm-ornament{display:block;width:150px;height:auto;margin:-2px auto 22px;opacity:.85}
+.mm-sand{background:var(--sand) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .22 0 0 0 0 .15 0 0 0 .05 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.mm-creme{background:var(--creme) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 .3 0 0 0 0 .22 0 0 0 0 .15 0 0 0 .06 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.mm-dunkel{background:#3B2A1F radial-gradient(120% 80% at 50% 0%,#55402F 0%,#3B2A1F 60%)}
+
+/* Titelbild: Verlauf, feinere Box, Hinweis zum Scrollen */
+.mm-held::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(43,33,27,.05) 40%,rgba(43,33,27,.55) 100%);pointer-events:none}
+.mm-box{z-index:1;background:rgba(98,72,55,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.18);box-shadow:var(--schatten);border-radius:4px}
+.mm-box h1{margin-bottom:.35em}
+
+/* Vorteile direkt unter dem Titelbild */
+.mm-vorteile{background:#fff;border-bottom:1px solid var(--linie)}
+.mm-vorteile ul{list-style:none;margin:0 auto;padding:18px 20px;max-width:1180px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.mm-vorteile li{display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--sans);font-size:13.5px;letter-spacing:.02em;color:var(--t)}
+.mm-vorteile svg{flex:0 0 26px;width:26px;height:26px;color:var(--erde)}
+
+/* Werte mit eigenen Symbolen */
+.mm-wert::before{content:none}
+.mm-wert svg{display:block;width:40px;height:40px;margin:0 auto 12px;color:var(--erde)}
+.mm-wert{font-size:19px;line-height:1.3}
+.mm-wert span{font-family:var(--sans);font-size:13px;letter-spacing:.01em}
+
+/* Karten und Bilder: weiche Schatten, ruhiger Zoom */
+.mm-karte .rund{box-shadow:var(--schatten);transition:transform .5s}
+.mm-karte:hover .rund{transform:translateY(-4px)}
+.mm-karte .eckig,.mm-ort .bild,.mm-galerie .rahmen,.mm-zitat .foto,.mm-nebeneinander .bild img{border-radius:6px}
+.mm-karte .eckig img,.mm-ort .bild img,.mm-galerie img{transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.mm-karte:hover .eckig img,.mm-ort:hover .bild img,.mm-galerie figure:hover img{transform:scale(1.045)}
+.mm-produkt-bild{position:relative;border-radius:6px}
+.mm-produkt-bild .zweit{position:absolute;inset:0;opacity:0;transition:opacity .45s}
+.mm-produkt:hover .mm-produkt-bild .zweit{opacity:1}
+.mm-produkt-name{font-size:16.5px;margin-top:2px}
+.mm-produkt-preis{font-family:var(--sans);font-size:13.5px;letter-spacing:.03em}
+.mm-sorte .bild{border-radius:6px}
+
+/* Zitat mit großem Anführungszeichen */
+.mm-zitat blockquote{position:relative;padding-top:34px}
+.mm-zitat blockquote::before{content:"“";position:absolute;top:-28px;left:-6px;font-size:120px;line-height:1;color:var(--gold);opacity:.55;font-style:normal}
+
+/* Weg des Kakaos: nummerierte Schritte */
+.mm-weg{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(6,1fr);gap:22px;counter-reset:schritt;position:relative}
+.mm-weg::before{content:"";position:absolute;left:8%;right:8%;top:62px;border-top:1px dashed #C9B48F}
+.mm-weg li{position:relative;text-align:center;counter-increment:schritt}
+.mm-weg .kreis{position:relative;width:124px;height:124px;margin:0 auto 16px;border-radius:50%;overflow:hidden;border:5px solid var(--sand);box-shadow:var(--schatten)}
+.mm-weg .kreis img{width:100%;height:100%;object-fit:cover}
+.mm-weg li::before{content:counter(schritt,decimal-leading-zero);position:absolute;z-index:1;top:-6px;left:calc(50% + 34px);width:34px;height:34px;border-radius:50%;background:var(--terra);color:#fff;font:600 12px/34px var(--sans)}
+.mm-weg h3{font-size:19px;margin-bottom:.3em}
+.mm-weg p{font-size:14.5px;color:var(--leise);line-height:1.55}
+
+/* Venezuela-Karte mit Projektorten */
+.mm-landkarte{position:relative;max-width:520px;margin:0 auto}
+.mm-landkarte>img{width:100%;height:auto;filter:sepia(.15)}
+.mm-pin{position:absolute;transform:translate(-50%,-100%);text-decoration:none!important;color:var(--t)!important;display:flex;flex-direction:column;align-items:center}
+.mm-pin b{font:600 11.5px var(--sans);letter-spacing:.12em;text-transform:uppercase;background:#fff;padding:6px 12px;border-radius:99px;box-shadow:var(--schatten);white-space:nowrap;transition:background .2s,color .2s}
+.mm-pin i{width:14px;height:14px;border-radius:50%;background:var(--terra);border:3px solid #fff;margin-top:6px;box-shadow:0 0 0 6px rgba(194,101,71,.25);animation:mm-puls 2.4s infinite}
+.mm-pin:hover b{background:var(--terra);color:#fff}
+@keyframes mm-puls{0%,100%{box-shadow:0 0 0 0 rgba(194,101,71,.45)}50%{box-shadow:0 0 0 10px rgba(194,101,71,0)}}
+.mm-orte-liste{display:grid;gap:22px}
+.mm-orte-liste a{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:center;text-decoration:none!important;color:inherit!important;padding:12px;border-radius:8px;transition:background .2s}
+.mm-orte-liste a:hover{background:rgba(255,255,255,.08)}
+.mm-orte-liste img{width:96px;height:96px;object-fit:cover;border-radius:6px}
+.mm-orte-liste h3{margin:0 0 .2em;font-size:22px}
+.mm-orte-liste p{margin:0;font-size:15px;opacity:.85}
+
+/* Newsletter */
+.mm-post{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,64px);align-items:center}
+.mm-post form{display:flex;gap:10px;flex-wrap:wrap}
+.mm-post input[type=email]{flex:1;min-width:220px;font:inherit;font-size:16px;padding:14px 20px;border:1.5px solid #CFC2AC;border-radius:99px;background:#fff;color:var(--t)}
+.mm-post button{cursor:pointer;font-family:var(--sans)}
+.mm-post small{display:block;margin-top:10px;font-family:var(--sans);font-size:12.5px;color:var(--leise)}
+
+/* Sanftes Einblenden beim Scrollen (nur mit JavaScript, nie bei „weniger Bewegung“) */
+.mm.js .mm-sicht{opacity:0;transform:translateY(22px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.mm.js .mm-sicht.da{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.mm.js .mm-sicht{opacity:1;transform:none;transition:none}.mm-pin i{animation:none}.mm *{scroll-behavior:auto}}
+
 /* Handy */
 @media (max-width:900px){
   .mm-werte{grid-template-columns:repeat(2,1fr)}
@@ -261,6 +363,12 @@
   .mm-rezepte{grid-template-columns:1fr}
   .mm-deko{width:84px;opacity:.55}
   .mm-zitat .foto{max-width:380px}
+  .mm-vorteile ul{grid-template-columns:repeat(2,1fr);gap:12px 8px}
+  .mm-vorteile li{justify-content:flex-start;font-size:12.5px}
+  .mm-weg{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:46%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:10px}
+  .mm-weg li{scroll-snap-align:start}
+  .mm-weg::before{display:none}
+  .mm-post{grid-template-columns:1fr}
 }
 @media (max-width:560px){
   .mm{font-size:16.5px}
@@ -301,8 +409,15 @@
 .v-beschreibung h2,.v-beschreibung h3,.v-beschreibung h4{margin:1.2em 0 .4em}.v-beschreibung ul,.v-beschreibung ol{padding-left:20px}
 .v-beschreibung table{border-collapse:collapse;width:100%;font-size:15px}.v-beschreibung td,.v-beschreibung th{border-bottom:1px solid #E2D6C2;padding:8px 6px;text-align:left}
 .v-beschreibung a{color:#C26547}
+.v-klapp{border-top:1px solid #E2D6C2}.v-klapp:last-child{border-bottom:1px solid #E2D6C2}
+.v-klapp summary{list-style:none;cursor:pointer;padding:16px 36px 16px 0;position:relative;font-size:19px;line-height:1.35}
+.v-klapp summary::-webkit-details-marker{display:none}
+.v-klapp summary::after{content:"+";position:absolute;right:4px;top:10px;font-size:26px;color:#C26547;transition:transform .2s}
+.v-klapp[open] summary::after{transform:rotate(45deg)}
+.v-klapp>div{padding:0 0 16px}
+.v-beschreibung>p:last-child{margin-bottom:0}
 .v-artikel,.v-recht{border-top:0;padding-top:0}.v-artikel img{max-width:100%;height:auto;border-radius:2px;margin:14px 0}
-.v-blogkarte{text-decoration:none;color:#352E26}.v-blogkarte:hover h3{color:#C26547}
+.v-blogkarte{text-decoration:none;color:#352E26}.v-blogkarte .eckig{display:block}.v-blogkarte .eckig img{display:block}.v-blogkarte:hover h3{color:#C26547}
 .v-korbknopf{position:relative;background:none;border:0;cursor:pointer;padding:10px;color:#352E26;margin-left:auto}
 .v-korbknopf b{position:absolute;top:2px;right:0;background:#C26547;color:#fff;font:600 11px/18px -apple-system,sans-serif;min-width:18px;height:18px;border-radius:9px;text-align:center;padding:0 4px}
 .v-korbknopf b:empty{display:none}
@@ -392,7 +507,16 @@ Versand International EU bis zu einem Gewicht bis  2 kg 
 
 <p>Weitere Informationen zu Versand &amp; Retour sind hier: <a href="19-versand-retour.html">Versand &amp; Retour </a></p>
     </div></section></div>
-<footer class="v-fuss"><a href="17-faq.html">Häufige Fragen</a> · <a href="18-kontakt.html">Kontakt</a> · <a href="19-versand-retour.html">Versand & Retour</a> · <a href="r-terms-of-service.html">AGB</a> · <a href="r-privacy-policy.html">Datenschutz</a> · <a href="r-refund-policy.html">Widerrufsrecht</a> · <a href="r-legal-notice.html">Impressum</a><p>Vorschau der neuen Seiten · Im Shop bleiben Kopf- und Fußzeile von Shopify · <a href="index.html">Alle Seiten</a></p></footer>
+<footer class="v-fuss"><div class="v-fuss-innen">
+  <div class="v-fuss-marke"><img src="https://www.mayamunay.com/cdn/shop/files/MayaMunayLogo_Schriftzug.png?height=196" alt="Maya Munay" width="104" height="64" loading="lazy">
+    <p>Zeremonieller Kakao aus Venezuela – vom Baum bis in die Tasse.</p>
+    <div class="v-sozial">
+      <a href="https://www.instagram.com/mayamunay.yosoycacao/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></a>
+      <a href="https://www.youtube.com/@maya-munay" target="_blank" rel="noopener" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z" fill="currentColor"/></svg></a>
+      <a href="https://www.facebook.com/people/Maya-Munay-Kakao/61551509820962/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 8h2.5V4.5H14A3.5 3.5 0 0 0 10.5 8v2.5H8V14h2.5v6.5H14V14h2.5l.5-3.5h-3V8.5c0-.3.2-.5.5-.5z"/></svg></a>
+    </div></div>
+  <div><h4>Shop</h4><ul><li><a href="20-kakao-finden.html">Finde deinen Kakao</a></li><li><a href="k-kakaomasse.html">Kakaomasse</a></li><li><a href="k-cacao-recconects-x-mayamunay.html">Shroomcacao</a></li><li><a href="k-bundle-set.html">Bundles</a></li><li><a href="02-kakaoabo.html">Kakaoabo</a></li><li><a href="p-baumpatenschaft.html">Baumpatenschaft</a></li></ul></div><div><h4>Maya Munay</h4><ul><li><a href="11-team.html">Team</a></li><li><a href="04-projekt-caripito.html">Projekte</a></li><li><a href="03-kakaoshops.html">Kakaoshops</a></li><li><a href="09-kooperation-und-handel.html">Kooperation &amp; Handel</a></li><li><a href="b-news.html">Kakao &amp; Wissen</a></li><li><a href="12-kakao-rezepte.html">Rezepte</a></li></ul></div><div><h4>Hilfe</h4><ul><li><a href="17-faq.html">Häufige Fragen</a></li><li><a href="18-kontakt.html">Kontakt</a></li><li><a href="19-versand-retour.html">Versand &amp; Retour</a></li><li><a href="r-refund-policy.html">Widerrufsrecht</a></li><li><a href="r-terms-of-service.html">AGB</a></li><li><a href="r-privacy-policy.html">Datenschutz</a></li><li><a href="r-legal-notice.html">Impressum</a></li></ul></div>
+</div><div class="v-fuss-unten"><span>© Maya Munay · In lak’ech hala ken</span><span>Vorschau der neuen Seiten · <a href="index.html">Alle Seiten</a></span></div></footer>
 <div class="v-korb-schleier"></div>
 <aside class="v-korb" aria-label="Warenkorb"><div class="v-korb-kopf"><span>Warenkorb</span><button type="button" class="v-korb-zu" aria-label="Warenkorb schließen">×</button></div>
   <div class="v-korb-liste"></div>
@@ -475,6 +599,7 @@ document.addEventListener('click', e => {
 });
 })();
 </script>
+<script>(()=>{if(!("IntersectionObserver"in window)||matchMedia("(prefers-reduced-motion: reduce)").matches)return;document.querySelectorAll(".mm:not(.js)").forEach(m=>{m.classList.add("js");const ziele=m.querySelectorAll(".mm-abschnitt h2,.mm-lead,.mm-karten>*,.mm-produkte>*,.mm-werte>*,.mm-weg>li,.mm-sorten>*,.mm-galerie>*,.mm-ort,.mm-zitat>*,.mm-teilen>.text>*,.mm-zahlen>*,.mm-rezept,.mm-landkarte,.mm-orte-liste>*,.mm-post>*");const b=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("da");b.unobserve(e.target)} }),{rootMargin:"0px 0px -8% 0px"});ziele.forEach(z=>{const i=[...z.parentElement.children].indexOf(z);z.style.transitionDelay=Math.min(i,5)*70+"ms";z.classList.add("mm-sicht");b.observe(z)})})})();</script>
 <script>
 const kopf = document.querySelector('.v-kopf'), burger = document.querySelector('.v-burger');
 burger.onclick = () => { const offen = kopf.classList.toggle('offen'); burger.setAttribute('aria-expanded', offen); };
